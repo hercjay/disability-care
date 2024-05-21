@@ -10,6 +10,13 @@ function App() {
   const [riskFactors, setRiskFactors] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
 
+  function getDisabilityInsights() {
+    //check that values are valid
+    const indicator = document.querySelector('#indicator-id').value;
+    const stratification = document.querySelector('#stratification-1').value;
+    alert('indicator is ' + indicator + 'stratification ' + stratification);
+  }
+
   // useEffect(() => {
   //   const fetchHealthRisks = async () => {
   //     const data = await getHealthRisks(disability, healthOutcome);
@@ -27,7 +34,7 @@ function App() {
         <p className='mb-8'>
           Uncover insights into disability disparities by comparing employment, education, income and other outcomes for people with various disabilities, including self-care, independent living, cognitive, and mobility disabilities, against those without disabilities.
         </p>
-        <form className='flex flex-col gap-4'>
+        <form className='flex flex-col gap-4 mb-12'>
 
           <div className='flex flex-col gap-2'>
             <label htmlFor="stratification-1">Select Disability status:</label>
@@ -41,7 +48,7 @@ function App() {
           
           <div className='flex flex-col gap-2'>
             <label htmlFor="indicator-id">Select an indicator</label>
-            <select id="stratification-1" className='p-2 border'>
+            <select id="indicator-id" className='p-2 border'>
                 <option disabled value="">Select Disability status</option>
                 {dhdsConstants.indicatorid.map((option) => (
                   <option value={option.key}>{option.title}</option>
@@ -49,11 +56,15 @@ function App() {
             </select>
           </div>
 
+          <button onClick={() => getDisabilityInsights()} className='bg-teal-500 hover:bg-teal-600 shadow-teal-300 text-white font-bold py-2 px-4 mt-2 rounded shadow-lg '>
+              Get insights
+          </button>
+
         </form>
 
 
-        <small className='mt-8'>
-          Attribution: Centers for Disease Control and Prevention, National Center on Birth Defects and Developmental Disabilities
+        <small>
+          <strong>Attribution</strong>: Centers for Disease Control and Prevention, National Center on Birth Defects and Developmental Disabilities
         </small>
 
       </div>
