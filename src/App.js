@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { getHealthRisks } from './api';
+import dhdsConstants from  './utils/dhds-api-constants';
 
 function App() {
   const [disability, setDisability] = useState('');
@@ -9,52 +10,52 @@ function App() {
   const [riskFactors, setRiskFactors] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
 
-  useEffect(() => {
-    const fetchHealthRisks = async () => {
-      const data = await getHealthRisks(disability, healthOutcome);
-      setPrevalence(data.prevalence);
-      setRiskFactors(data.riskFactors);
-      setRecommendations(data.recommendations);
-    };
-    fetchHealthRisks();
-  }, [disability, healthOutcome]);
+  // useEffect(() => {
+  //   const fetchHealthRisks = async () => {
+  //     const data = await getHealthRisks(disability, healthOutcome);
+  //     setPrevalence(data.prevalence);
+  //     setRiskFactors(data.riskFactors);
+  //     setRecommendations(data.recommendations);
+  //   };
+  //   fetchHealthRisks();
+  // }, [disability, healthOutcome]);
 
   return (
-    <div className="container flex-col h-lvh mx-auto my-auto p-4 pt-6 bg-slate-100">
-      <div className='bg-teal-100 p-2 rounded-sm my-auto'>
-        <h1 className="text-3xl font-bold">Disability Health Risks</h1>
-        <form>
-          <label className="block" htmlFor="disability">Select Disability:</label>
-          <select className="w-full p-2 pl-10 text-sm text-gray-700" id="disability" value={disability} onChange={(e) => setDisability(e.target.value)}>
-            <option value="">Select</option>
-            <option value="physical">Physical</option>
-            <option value="sensory">Sensory</option>
-            <option value="cognitive">Cognitive</option>
-          </select>
-          <label className="block" htmlFor="health-outcome">Select Health Outcome:</label>
-          <select className="w-full p-2 pl-10 text-sm text-gray-700" id="health-outcome" value={healthOutcome} onChange={(e) => setHealthOutcome(e.target.value)}>
-            <option value="">Select</option>
-            <option value="diabetes">Diabetes</option>
-            <option value="hypertension">Hypertension</option>
-            <option value="depression">Depression</option>
-          </select>
+    <div className="container flex justify-center mx-auto my-auto p-4 pt-6 ">
+      <div className='bg-white p-8 rounded-sm mt-6 shadow-md max-w-full md:max-w-screen-md'>
+        <h1 className="text-3xl font-bold mb-2">Disability Data Comparison Tool</h1>
+        <p className='mb-8'>
+          Uncover insights into disability disparities by comparing employment, education, income and other outcomes for people with various disabilities, including self-care, independent living, cognitive, and mobility disabilities, against those without disabilities.
+        </p>
+        <form className='flex flex-col gap-4'>
+
+          <div className='flex flex-col gap-2'>
+            <label htmlFor="stratification-1">Select Disability status:</label>
+            <select id="stratification-1" className='p-2 border'>
+                <option disabled value="">Select Disability status:</option>
+                {dhdsConstants.stratification1.map((option) => (
+                  <option value={option.key}>{option.title}</option>
+                ))}
+            </select>
+          </div>
+          
+          <div className='flex flex-col gap-2'>
+            <label htmlFor="indicator-id">Select an indicator</label>
+            <select id="stratification-1" className='p-2 border'>
+                <option disabled value="">Select Disability status</option>
+                {dhdsConstants.indicatorid.map((option) => (
+                  <option value={option.key}>{option.title}</option>
+                ))}
+            </select>
+          </div>
+
         </form>
-        <div className="mt-4">
-          <h2 className="text-2xl font-bold">Prevalence:</h2>
-          <p>{prevalence}</p>
-          <h2 className="text-2xl font-bold">Risk Factors:</h2>
-          <ul>
-            {riskFactors.map((factor, index) => (
-              <li key={index}>{factor}</li>
-            ))}
-          </ul>
-          <h2 className="text-2xl font-bold">Recommendations:</h2>
-          <ul>
-            {recommendations.map((recommendation, index) => (
-              <li key={index}>{recommendation}</li>
-            ))}
-          </ul>
-        </div>
+
+
+        <small className='mt-8'>
+          Attribution: Centers for Disease Control and Prevention, National Center on Birth Defects and Developmental Disabilities
+        </small>
+
       </div>
     </div>
   );
