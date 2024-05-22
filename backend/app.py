@@ -12,6 +12,8 @@ y = df['Response']  # target variable
 
 # Age range (18-44, 45-64, 65+), map this string values to integers
 X['Stratification2'] = X['Stratification2'].map({'18-44': 0, '45-64': 1, '65+': 2})
+X['Stratification1'] = X['Stratification1'].map({'No Disability': 0, 'Any Disability': 1})
+y['Response'] = y['Response'].map({'Yes': 1, 'No': 0})
 
 # split into training sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
