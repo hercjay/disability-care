@@ -4,8 +4,12 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report, roc_auc_score
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 
+#define constants
+MAX_ITER = 750
+
+
 # Load the filtered dataset
-df = pd.read_csv('dhds-cancer.csv', low_memory=False)
+df = pd.read_csv('dhds-cancer-age.csv', low_memory=False)
 
 # Split the dataset into training and testing sets
 X = df.drop('Response', axis=1)  # features
@@ -19,15 +23,16 @@ le = LabelEncoder()
 X = X.apply(le.fit_transform)
 y = le.fit_transform(y)
 
+
 # scale the features to improve accuracy of the model
 scaler = StandardScaler()
 X = scaler.fit_transform(X)
 
 # split into training sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=40)
 
 # Train a logistic regression model on the training data
-model = LogisticRegression(random_state=42, max_iter=1000)
+model = LogisticRegression(random_state=40, max_iter=MAX_ITER)
 model.fit(X_train, y_train)
 
 # Evaluate the model's performance on the testing data
