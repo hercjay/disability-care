@@ -1,5 +1,6 @@
 
 import pandas as pd
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, classification_report, roc_auc_score, confusion_matrix
@@ -22,6 +23,11 @@ data = data.apply(le.fit_transform, )
 
 X = data.drop('Response' , axis=1)
 y = data['Response']
+
+
+
+plt.figure(figsize=(10, 7))
+data.boxplot()
 
 
 
