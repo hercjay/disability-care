@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { getHealthRisks } from './api';
+import { getHealthRisks, getDisabilityInsightsFromDhds } from './api';
 import dhdsConstants from  './utils/dhds-api-constants';
 
 function App() {
@@ -10,11 +10,17 @@ function App() {
   const [riskFactors, setRiskFactors] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
 
-  function getDisabilityInsights() {
+  async function getDisabilityInsights() {
     //check that values are valid
     const indicator = document.querySelector('#indicator-id').value;
     const stratification = document.querySelector('#stratification-1').value;
     alert('indicator is ' + indicator + 'stratification ' + stratification);
+    // try {
+    //   const data = await getDisabilityInsightsFromDhds(indicator, stratification);
+    //   alert('data is ' + JSON.stringify(data));
+    // } catch (error) {
+    //   alert('An error occurred: ' + error);
+    // }
   }
 
   // useEffect(() => {
@@ -41,7 +47,7 @@ function App() {
             <select id="stratification-1" className='p-2 border'>
                 <option disabled value="">Select Disability status:</option>
                 {dhdsConstants.stratification1.map((option) => (
-                  <option value={option.key}>{option.title}</option>
+                  <option  key={option.key} value={option.key}>{option.title}</option>
                 ))}
             </select>
           </div>
@@ -51,7 +57,7 @@ function App() {
             <select id="indicator-id" className='p-2 border'>
                 <option disabled value="">Select Disability status</option>
                 {dhdsConstants.indicatorid.map((option) => (
-                  <option value={option.key}>{option.title}</option>
+                  <option key={option.key} value={option.key}>{option.title}</option>
                 ))}
             </select>
           </div>
